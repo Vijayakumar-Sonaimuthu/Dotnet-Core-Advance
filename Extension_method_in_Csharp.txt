@@ -1,0 +1,72 @@
+In .NET Core / modern .NET, an extension method lets you add a new method to an existing type without modifying the original type or creating a derived class.
+
+Simple example
+
+Suppose you have a string:
+
+🔹 Syntax
+string name = "john";
+
+You can create an extension method called ToCapitalized():
+
+🔹 Syntax
+public static class StringExtensions
+{
+    public static string ToCapitalized(this string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text;
+
+        return char.ToUpper(text[0]) + text.Substring(1).ToLower();
+    }
+}
+
+The important part is:
+this string text
+
+The this keyword tells C# that this is an extension method for string.
+
+Now you can call it like a normal method:
+🔹 Syntax
+string name = "john";
+
+string result = name.ToCapitalized();
+
+Console.WriteLine(result);
+
+Output:
+
+John
+
+🔸Why use extension methods?
+
+They are useful when you want to add reusable functionality to types you don't own.
+
+For example:
+🔹 Syntax
+List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+
+var evenNumbers = numbers.Where(x => x % 2 == 0);
+
+Where() is an extension method provided by LINQ.
+
+You didn't modify List<T> to add Where(). LINQ provides it as an extension method.
+
+
+📌 Summary
+Rules to remember
+
+An extension method:
+
+* Must be inside a static class.
+* Must itself be static.
+* Its first parameter must use the this keyword.
+
+✅ Best Practice:
+
+🚫 Avoid:
+
+
+💬 Interview Questions and Answers
+
+ 
